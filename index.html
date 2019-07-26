@@ -24,9 +24,9 @@
             <div class="home col-12 bg-danger h-100 d-flex align-items-center justify-content-center">
                 <p>HOME</p>
             </div>
-            <div class="col-12 bg-success h-100 p-0" id="main">
-                <div class="main w-100">
-                    <div class="inner w-100 h-50" id="inner">
+            <div class="col-12 bg-success h-100 p-0">
+                <div class="main w-100" id="main">
+                    <div class="inner w-100" id="inner">
                         <div class="one w-100 h-100 d-inline-block" id="one">
                             <p class="text-dark">ONE</p>
                         </div>
@@ -37,26 +37,22 @@
                             <p>THREE</p>
                         </div>
                     </div>
-                    <!-- <div class="main2">
-                        <div class="three d-inline-block">
-                            <p>FOUR</p>
+                </div>
+                <div class="main w-100" id="main1" style="height: 300vh;">
+                    <div class="inner1" id="inner1">
+                        <div class="three bg-secondary d-inline-block" id="three">
+                            <p class="text-light">FOUR</p>
                         </div>
-                    </div> -->
+                        <div class="three d-inline-block bg-default" id="three">
+                            <p class="text-light">FIVE</p>
+                        </div>
+                        <div class="three d-inline-block bg-primary" id="three">
+                            <p class="text-light">SIX</p>
+                        </div>
+                    </div>
                 </div>
+                <div class="footer h-100 bg-dark"></div>
             </div>
-            <!-- <div class="col-12 p-0 h-100">
-                <div class="main2" id="main2">
-                    <div class="three d-inline-block">
-                        <p>FOUR</p>
-                    </div>
-                    <div class="three d-inline-block bg-secondary">
-                        <p>FOUR</p>
-                    </div>
-                    <div class="three d-inline-block bg-default">
-                        <p>FOUR</p>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
     <!-- Start your project here-->
@@ -78,9 +74,17 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/debug.addIndicators.min.js"></script>
     <script>
         var height1 = window.innerHeight / 2;
+        var height2 = $('#main1').css('height');
+        height2 = parseInt(height2) / 2;
         var width1 = window.innerWidth / 2;
-        console.log(height1);
-        var blockTween = new TweenMax.to('#inner', 10, {
+        var mainHeight = $('#main').height();
+        var duration1 = parseInt($('#main1').css('width'));
+        console.log(duration1);
+        var blockTween = new TweenMax.to('#inner', 100, {
+            backgroundColor: 'red',
+            x: "-200%",
+        });
+        var blockTween1 = new TweenMax.to('#inner1', 100, {
             backgroundColor: 'red',
             x: "-200%",
         });
@@ -90,23 +94,25 @@
                 triggerElement: '#main',
                 // the scene should last for a scroll distance of 100px
                 offset: height1, // start this scene after scrolling for 50px
-                duration: "500px"
+                duration: mainHeight - window.innerHeight
             })
             .setTween(blockTween)
             .addIndicators()
-            .setPin("#main") // pins the element for the the scene's duration
+            .setPin("#inner") // pins the element for the the scene's duration
             .addTo(controller); // assign the scene to the controller
 
-        // new ScrollMagic.Scene({
-        //         triggerElement: '#main2',
-        //         // the scene should last for a scroll distance of 100px
-        //         offset: height1, // start this scene after scrolling for 50px
-        //         duration: "750px"
-        //     })
-        //     .setTween(blockTween)
-        //     .addIndicators()
-        //     .setPin("#main2") // pins the element for the the scene's duration
-        //     .addTo(controller); // assign the scene to the controller
+        // scroll magic part 2
+
+        new ScrollMagic.Scene({
+                triggerElement: '#main1',
+                // the scene should last for a scroll distance of 100px
+                offset: height1, // start this scene after scrolling for 50px
+                duration: mainHeight - window.innerHeight,
+            })
+            .setTween(blockTween1)
+            .addIndicators()
+            .setPin("#inner1") // pins the element for the the scene's duration
+            .addTo(controller); // assign the scene to the controller
     </script>
 </body>
 
